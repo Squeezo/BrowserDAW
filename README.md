@@ -1,6 +1,6 @@
 # BrowserDAW
 
-A browser-based drum machine and bassline emulator. Three classic instruments running together on a single page, synchronized to a shared clock — no plugins, no dependencies, no build step.
+A browser-based drum machine and bassline emulator. Three classic instruments running together on a single page, synchronized to a shared clock — no plugins, no dependencies, no build step. Try it here: https://squeezo.github.io/BrowserDAW/
 
 ![BrowserDAW — TB-303 and TR-808](screenshot.png)
 
