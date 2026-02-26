@@ -1,0 +1,104 @@
+/* TR-909 theme — darker, more industrial than the 808 */
+@import url('../../shared/drum-machine.css');
+
+#tr909-app {
+  --color-bg:          #0e0e0e;
+  --color-panel:       #1a1a1a;
+  --color-accent:      #cc3300;
+  --color-on:          #cc3300;
+  --color-accent-step: #ff9900;
+  --color-off:         #111;
+  --color-text:        #c0b0a0;
+  --color-border:      #333;
+  --color-active-glow: #cc3300;
+  --color-mute:        #1e1e1e;
+  --color-mute-active: #991100;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+#tr909-app {
+  padding: 20px;
+  background: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.8);
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+
+.dm-title {
+  color: var(--color-accent);
+}
+
+.dm-play-btn {
+  background: var(--color-accent);
+  color: #fff;
+  border-color: #991100;
+}
+
+.dm-play-btn:hover { background: #e03300; }
+
+.dm-stop-btn {
+  background: var(--color-border);
+  color: var(--color-text);
+  border-color: #222;
+}
+
+.dm-stop-btn:hover { background: #444; }
+
+.dm-bpm-input {
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.dm-pattern-select {
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+/* ── Step groups ─────────────────────────────────────────────────────────── */
+
+.step-group + .step-group {
+  border-left: 2px solid var(--color-border);
+  padding-left: 4px;
+}
+
+/* ── Mute ────────────────────────────────────────────────────────────────── */
+
+.dm-mute-btn {
+  background: var(--color-mute);
+  color: var(--color-text);
+}
+
+/* ── pDecay toggle button ────────────────────────────────────────────────── */
+
+.pdecay-btn {
+  padding: 2px 6px;
+  font-size: 9px;
+  font-family: inherit;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  border-radius: 3px;
+  cursor: pointer;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  align-self: flex-end;
+  margin-bottom: 1px;
+}
+
+.pdecay-btn--active {
+  background: var(--color-accent);
+  color: #fff;
+  border-color: #991100;
+}
+
+/* ── Voice row alternating shade ─────────────────────────────────────────── */
+
+.dm-voice-row:nth-child(even) {
+  background: rgba(255,255,255,0.02);
+  border-radius: 3px;
+}

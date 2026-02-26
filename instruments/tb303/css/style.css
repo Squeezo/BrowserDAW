@@ -1,0 +1,401 @@
+/* ── Theme Contract ─────────────────────────────────────────────────────────
+   Scoped to .tb303 so vars don't bleed into other instruments on the same page.
+   ──────────────────────────────────────────────────────────────────────── */
+.tb303 {
+  --color-bg:            #111010;
+  --color-panel:         #1e1c19;
+  --color-panel-raised:  #2a2720;
+  --color-border:        #3a3530;
+  --color-accent:        #e8520a;   /* TB-303 orange */
+  --color-accent-glow:   #ff6b1a44;
+  --color-step-active:   #ffcc00;
+  --color-slide:         #4a9eff;
+  --color-rest:          #555;
+  --color-text:          #d8d0c4;
+  --color-text-dim:      #7a7068;
+  --color-text-bright:   #ffffff;
+  --color-knob-body:     #3a3530;
+  --color-knob-ring:     #555048;
+  --color-knob-dot:      var(--color-accent);
+  --color-btn-active:    var(--color-accent);
+  --color-flag-rest:     #888;
+  --color-flag-accent:   #f0c030;
+  --color-flag-slide:    var(--color-slide);
+  --color-run:           #3a9e4a;
+  --color-stop:          #9e3a3a;
+
+  --knob-size:           60px;
+  --step-size:           52px;
+  --font-ui:             'Courier New', 'Courier', monospace;
+  --radius:              4px;
+  --radius-lg:           8px;
+  --gap:                 8px;
+}
+
+/* ── Reset ──────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* ── TB-303 Shell ───────────────────────────────────────────────────────── */
+.tb303 {
+  background: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 8px 32px #00000066;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--color-text);
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────── */
+.tb303__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.tb303__brand {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  flex: 0 0 auto;
+}
+
+.tb303__model {
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--color-accent);
+  letter-spacing: 2px;
+}
+
+.tb303__subtitle {
+  font-size: 9px;
+  color: var(--color-text-dim);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+/* ── Controls Row ────────────────────────────────────────────────────────── */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 20px;
+  padding: 12px;
+  background: var(--color-panel-raised);
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+}
+
+.knob-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.knob__label {
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--color-text-dim);
+  text-transform: uppercase;
+}
+
+/* ── Knob ─────────────────────────────────────────────────────────────────── */
+.knob {
+  width: var(--knob-size);
+  height: var(--knob-size);
+  cursor: ns-resize;
+  user-select: none;
+  touch-action: none;
+  outline: none;
+}
+
+.knob:focus-visible {
+  outline: 2px solid var(--color-accent);
+  border-radius: 50%;
+}
+
+.knob__body {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 35%, #4a4540, var(--color-knob-body));
+  border: 2px solid var(--color-knob-ring);
+  box-shadow: 0 2px 6px #00000088, inset 0 1px 2px #ffffff18;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Full-size transparent overlay that rotates around the knob center */
+.knob__indicator {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  transform: rotate(var(--knob-angle, -135deg));
+}
+
+/* Visible dot on the indicator, near the outer edge */
+.knob__indicator::after {
+  content: '';
+  position: absolute;
+  bottom: 7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-knob-dot);
+  box-shadow: 0 0 5px var(--color-accent-glow);
+}
+
+/* ── Pattern Bank ────────────────────────────────────────────────────────── */
+.pattern-bank-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-label {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--color-text-dim);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.pattern-bank {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.pattern-btn {
+  padding: 4px 7px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  color: var(--color-text-dim);
+  font-size: 10px;
+  transition: all 0.1s;
+  min-width: 30px;
+  text-align: center;
+}
+
+.pattern-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.pattern-btn--active {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: #e8520a18;
+  box-shadow: 0 0 6px var(--color-accent-glow);
+}
+
+/* ── Step Sequencer ──────────────────────────────────────────────────────── */
+.steps-section {
+  padding-top: 4px;
+}
+
+.steps-container {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  gap: 4px;
+}
+
+@media (max-width: 720px) {
+  .tb303 { --knob-size: 50px; }
+  .steps-container { grid-template-columns: repeat(8, 1fr); }
+}
+
+@media (max-width: 420px) {
+  .tb303 { --knob-size: 40px; }
+  .steps-container { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ── Single Step ─────────────────────────────────────────────────────────── */
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 2px;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  background: var(--color-panel-raised);
+  transition: border-color 0.08s, background 0.08s;
+  min-width: 0;
+}
+
+.step--active {
+  border-color: var(--color-step-active);
+  background: #ffcc0014;
+  box-shadow: 0 0 8px #ffcc0044;
+}
+
+.step__number {
+  font-size: 8px;
+  color: var(--color-text-dim);
+  line-height: 1;
+}
+
+.step__note-btn {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  color: var(--color-text);
+  background: #111;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 3px 2px;
+  width: 100%;
+  text-align: center;
+  transition: border-color 0.1s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.step__note-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.step__flags {
+  display: flex;
+  gap: 2px;
+}
+
+/* ── Toggle Buttons (R/A/S) ──────────────────────────────────────────────── */
+.toggle-btn {
+  width: 16px;
+  height: 14px;
+  border-radius: 2px;
+  border: 1px solid var(--color-border);
+  font-size: 8px;
+  font-weight: bold;
+  color: var(--color-text-dim);
+  background: #0a0a0a;
+  transition: all 0.1s;
+  line-height: 1;
+  padding: 0;
+}
+
+.toggle-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.step__rest[aria-pressed="true"] {
+  background: var(--color-flag-rest);
+  border-color: var(--color-flag-rest);
+  color: #fff;
+}
+
+.step__accent[aria-pressed="true"] {
+  background: var(--color-flag-accent);
+  border-color: var(--color-flag-accent);
+  color: #111;
+}
+
+.step__slide[aria-pressed="true"] {
+  background: var(--color-flag-slide);
+  border-color: var(--color-flag-slide);
+  color: #fff;
+}
+
+/* ── Note Editor Dialog ───────────────────────────────────────────────────── */
+.note-editor {
+  background: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  color: var(--color-text);
+  padding: 0;
+  max-width: 480px;
+  width: 94vw;
+}
+
+.note-editor::backdrop {
+  background: #00000099;
+}
+
+.note-editor__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.note-editor__title {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--color-text-dim);
+}
+
+.note-editor__close {
+  font-size: 18px;
+  color: var(--color-text-dim);
+  line-height: 1;
+  padding: 0 4px;
+}
+
+.note-editor__close:hover { color: var(--color-text); }
+
+.note-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 3px;
+  padding: 12px;
+}
+
+.note-grid__btn {
+  padding: 6px 2px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-family: var(--font-ui);
+  font-size: 9px;
+  color: var(--color-text-dim);
+  background: #111;
+  text-align: center;
+  transition: all 0.1s;
+}
+
+.note-grid__btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: #e8520a10;
+}
+
+.note-grid__btn--sharp {
+  background: #0d0d0d;
+  color: #555;
+}
+
+.note-grid__btn--selected {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: #fff;
+  box-shadow: 0 0 6px var(--color-accent-glow);
+}

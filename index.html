@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BrowserDAW</title>
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="instruments/tb303/css/style.css">
+  <link rel="stylesheet" href="instruments/tr808/css/style.css">
+  <link rel="stylesheet" href="instruments/tr909/css/style.css">
+</head>
+<body>
+
+<!-- ── Sticky global header ──────────────────────────────────────────────── -->
+<header class="daw-header">
+  <div class="daw-title">BROWSERDAW</div>
+  <div class="global-transport">
+    <button id="global-play" class="global-transport__btn global-transport__btn--play"
+            aria-label="Play all">&#9654; PLAY</button>
+    <button id="global-stop" class="global-transport__btn global-transport__btn--stop"
+            aria-label="Stop all">&#9632; STOP</button>
+    <div class="global-transport__bpm">
+      <label for="global-bpm">BPM</label>
+      <input id="global-bpm" type="number" min="20" max="300" value="120" aria-label="Master BPM">
+    </div>
+  </div>
+</header>
+
+<!-- ── TB-303 Bass Line ───────────────────────────────────────────────────── -->
+<section class="instrument-section" id="section-tb303">
+  <!-- clock strip injected here by app.js -->
+
+  <div class="tb303" data-playing="false">
+
+    <header class="tb303__header">
+      <div class="tb303__brand">
+        <span class="tb303__model">TB-303</span>
+        <span class="tb303__subtitle">Bass Line</span>
+      </div>
+    </header>
+
+    <section class="controls" aria-label="Synthesizer Controls">
+
+      <div class="knob-group">
+        <div class="knob"
+             data-param="cutoff"
+             data-min="20" data-max="8000" data-curve="log"
+             data-value="800"
+             role="slider" aria-label="Cutoff Frequency">
+          <div class="knob__body"><div class="knob__indicator"></div></div>
+        </div>
+        <span class="knob__label">CUTOFF</span>
+      </div>
+
+      <div class="knob-group">
+        <div class="knob"
+             data-param="resonance"
+             data-min="0" data-max="1" data-curve="linear"
+             data-value="0.5"
+             role="slider" aria-label="Resonance">
+          <div class="knob__body"><div class="knob__indicator"></div></div>
+        </div>
+        <span class="knob__label">RESONANCE</span>
+      </div>
+
+      <div class="knob-group">
+        <div class="knob"
+             data-param="envMod"
+             data-min="0" data-max="1" data-curve="linear"
+             data-value="0.5"
+             role="slider" aria-label="Envelope Modulation">
+          <div class="knob__body"><div class="knob__indicator"></div></div>
+        </div>
+        <span class="knob__label">ENV MOD</span>
+      </div>
+
+      <div class="knob-group">
+        <div class="knob"
+             data-param="decay"
+             data-min="10" data-max="2000" data-curve="log"
+             data-value="200"
+             role="slider" aria-label="Decay">
+          <div class="knob__body"><div class="knob__indicator"></div></div>
+        </div>
+        <span class="knob__label">DECAY</span>
+      </div>
+
+      <div class="knob-group">
+        <div class="knob"
+             data-param="accentIntensity"
+             data-min="0" data-max="1" data-curve="linear"
+             data-value="0.7"
+             role="slider" aria-label="Accent Intensity">
+          <div class="knob__body"><div class="knob__indicator"></div></div>
+        </div>
+        <span class="knob__label">ACCENT</span>
+      </div>
+
+      <div class="knob-group">
+        <div class="knob"
+             data-param="distortion"
+             data-min="0" data-max="1" data-curve="linear"
+             data-value="0.2"
+             role="slider" aria-label="Distortion">
+          <div class="knob__body"><div class="knob__indicator"></div></div>
+        </div>
+        <span class="knob__label">DIST</span>
+      </div>
+
+      <div class="knob-group">
+        <div class="knob"
+             data-param="tune"
+             data-min="-12" data-max="12" data-curve="linear"
+             data-value="0"
+             role="slider" aria-label="Tune">
+          <div class="knob__body"><div class="knob__indicator"></div></div>
+        </div>
+        <span class="knob__label">TUNE</span>
+      </div>
+
+    </section>
+
+    <section class="pattern-bank-section" aria-label="Pattern Bank">
+      <span class="section-label">PATTERN</span>
+      <div id="pattern-bank" class="pattern-bank" role="group" aria-label="Pattern selection"></div>
+    </section>
+
+    <section class="steps-section" aria-label="Step Sequencer">
+      <div id="steps-container" class="steps-container"></div>
+    </section>
+
+    <!-- Note editor dialog — inside .tb303 so CSS vars resolve correctly -->
+    <dialog id="note-editor" class="note-editor" aria-label="Note Editor">
+      <div class="note-editor__header">
+        <span class="note-editor__title">SELECT NOTE</span>
+        <button class="note-editor__close" aria-label="Close note editor">&times;</button>
+      </div>
+      <div class="note-grid" role="group" aria-label="Note grid"></div>
+    </dialog>
+
+  </div><!-- .tb303 -->
+</section>
+
+<!-- ── TR-808 Rhythm Composer ─────────────────────────────────────────────── -->
+<section class="instrument-section" id="section-tr808">
+  <!-- clock strip injected here by app.js -->
+  <div id="tr808-app" class="drum-machine"></div>
+</section>
+
+<!-- ── TR-909 Rhythm Composer ─────────────────────────────────────────────── -->
+<section class="instrument-section" id="section-tr909">
+  <!-- clock strip injected here by app.js -->
+  <div id="tr909-app" class="drum-machine"></div>
+</section>
+
+<!-- ── Mixer ─────────────────────────────────────────────────────────────── -->
+<section id="mixer-section">
+  <h2>MIXER</h2>
+  <div id="mixer"></div>
+</section>
+
+<!-- ── Scripts ───────────────────────────────────────────────────────────── -->
+
+<!-- Shared DAW -->
+<script src="js/mixer.js"></script>
+<script src="js/clock.js"></script>
+
+<!-- TB-303 -->
+<script src="instruments/tb303/js/constants.js"></script>
+<script src="instruments/tb303/js/patterns.js"></script>
+<script src="instruments/tb303/js/synth.js"></script>
+<script src="instruments/tb303/js/sequencer.js"></script>
+<script src="instruments/tb303/js/ui.js"></script>
+<script src="instruments/tb303/js/main.js"></script>
+
+<!-- TR-808 -->
+<script src="instruments/tr808/js/constants.js"></script>
+<script src="instruments/tr808/js/voices.js"></script>
+<script src="instruments/tr808/js/patterns.js"></script>
+<script src="instruments/tr808/js/sequencer.js"></script>
+<script src="instruments/tr808/js/ui.js"></script>
+<script src="instruments/tr808/js/main.js"></script>
+
+<!-- TR-909 -->
+<script src="instruments/tr909/js/constants.js"></script>
+<script src="instruments/tr909/js/voices.js"></script>
+<script src="instruments/tr909/js/patterns.js"></script>
+<script src="instruments/tr909/js/sequencer.js"></script>
+<script src="instruments/tr909/js/ui.js"></script>
+<script src="instruments/tr909/js/main.js"></script>
+
+<!-- App layer -->
+<script src="js/mixer-ui.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>

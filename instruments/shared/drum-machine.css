@@ -1,0 +1,173 @@
+/* drum-machine.css — shared layout for TR-808 and TR-909 */
+
+.drum-machine {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 16px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  user-select: none;
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+
+.dm-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 4px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dm-title {
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0.25em;
+  min-width: 80px;
+}
+
+.dm-play-btn,
+.dm-stop-btn {
+  padding: 5px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  border: 1px solid transparent;
+}
+
+.dm-bpm-control {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dm-bpm-input {
+  width: 52px;
+  text-align: center;
+  font-family: inherit;
+  font-size: 13px;
+  border-radius: 3px;
+  padding: 3px 4px;
+}
+
+/* remove number input spinners */
+.dm-bpm-input::-webkit-inner-spin-button,
+.dm-bpm-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+.dm-bpm-input { -moz-appearance: textfield; }
+
+.dm-pattern-control {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dm-pattern-select {
+  font-family: inherit;
+  font-size: 12px;
+  padding: 3px 4px;
+  border-radius: 3px;
+}
+
+/* ── Voice row ───────────────────────────────────────────────────────────── */
+
+.dm-voice-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+}
+
+.dm-voice-label {
+  width: 26px;
+  text-align: right;
+  font-weight: bold;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+/* ── Params area (fixed width so steps always align) ─────────────────────── */
+
+.dm-params {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 290px;   /* 5 controls × 52px + 4 gaps × 6px + toggle button room */
+  flex-shrink: 0;
+}
+
+.dm-param-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  width: 52px;
+}
+
+.dm-param-label {
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  opacity: 0.6;
+}
+
+.dm-param-control input[type="range"] {
+  width: 50px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--color-accent);
+}
+
+/* ── Steps ───────────────────────────────────────────────────────────────── */
+
+.dm-steps {
+  display: flex;
+  gap: 6px;
+  flex: 1;
+}
+
+.step-group {
+  display: flex;
+  gap: 2px;
+}
+
+.step-btn {
+  width: 34px;
+  height: 32px;
+  border-radius: 3px;
+  cursor: pointer;
+  border: 1px solid var(--color-border);
+  transition: box-shadow 0.04s;
+  padding: 0;
+}
+
+/* CSS drives color from data-state attribute — themed in per-instrument CSS */
+.step-btn[data-state="0"] { background: var(--color-off); }
+.step-btn[data-state="1"] { background: var(--color-on); }
+.step-btn[data-state="2"] { background: var(--color-accent-step); }
+
+.step-btn--active {
+  box-shadow: 0 0 8px 3px var(--color-active-glow);
+}
+
+/* ── Mute ────────────────────────────────────────────────────────────────── */
+
+.dm-mute-btn {
+  width: 30px;
+  height: 28px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 9px;
+  font-family: inherit;
+  font-weight: bold;
+  flex-shrink: 0;
+  border: 1px solid var(--color-border);
+  transition: background 0.1s;
+}
+
+.dm-mute-btn--active {
+  background: var(--color-mute-active) !important;
+  color: white !important;
+}

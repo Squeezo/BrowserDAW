@@ -1,0 +1,81 @@
+/* TR-808 theme — cream/orange/red on dark wood */
+@import url('../../shared/drum-machine.css');
+
+#tr808-app {
+  --color-bg:          #1a1512;
+  --color-panel:       #2a221a;
+  --color-accent:      #e85c0a;
+  --color-on:          #e85c0a;
+  --color-accent-step: #ffcc00;
+  --color-off:         #111008;
+  --color-text:        #c8b89a;
+  --color-border:      #4a3828;
+  --color-active-glow: #e85c0a;
+  --color-mute:        #2a2218;
+  --color-mute-active: #aa2200;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+#tr808-app {
+  padding: 20px;
+  background: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.6);
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+
+.dm-title {
+  color: var(--color-accent);
+}
+
+.dm-play-btn {
+  background: var(--color-accent);
+  color: #fff;
+  border-color: #c44800;
+}
+
+.dm-play-btn:hover { background: #ff6a1a; }
+
+.dm-stop-btn {
+  background: var(--color-border);
+  color: var(--color-text);
+  border-color: #3a2818;
+}
+
+.dm-stop-btn:hover { background: #5a4838; }
+
+.dm-bpm-input {
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.dm-pattern-select {
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+/* ── Step groups: subtle dividers between beat groups ────────────────────── */
+
+.step-group + .step-group {
+  border-left: 2px solid var(--color-border);
+  padding-left: 4px;
+}
+
+/* ── Mute button ─────────────────────────────────────────────────────────── */
+
+.dm-mute-btn {
+  background: var(--color-mute);
+  color: var(--color-text);
+}
+
+/* ── Voice row alternating shade ─────────────────────────────────────────── */
+
+.dm-voice-row:nth-child(even) {
+  background: rgba(255,255,255,0.025);
+  border-radius: 3px;
+}
